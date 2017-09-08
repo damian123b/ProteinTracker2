@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-Aug-2017 12:11:14 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+	<class name="com.simpleprogrammer.User" table="USERS">
+		<id name="id" type="int">
+			<column name="ID" />
+			<generator class="increment" />
+		</id>
+		
+		
+		<property name="name" type="java.lang.String">
+			<column name="NAME" />
+		</property>
+
+		<many-to-one name="proteinData" class="com.simpleprogrammer.ProteinData" cascade="save-update" column="Protein_Data_Id" unique="true">
+		</many-to-one>
+
+	<!--  	<component name="proteinData">
+			<property name="total" type="int">
+				<column name="kolumna_total" />
+			</property>
+			<property name="goal">
+			</property>
+		</component> -->
+
+	<!--  	<set name="history" table="user_history_tabela">
+			<key column="id"/>
+			<composite-element class="com.simpleprogrammer.UserHistory">
+				<property name="entryTime" type="date" column="Czas_Wpisu"></property>
+				<property name="entry" type="string" column="Wpis"></property>
+			</composite-element>
+		</set>
+   
+		<list name="proteinData" table="historia_serow">
+			<key column="id"/>
+			<list-index column="Pozycja"></list-index>
+			<composite-element class="com.simpleprogrammer.UserHistory">
+				<property name="entryTime" type="date" column="czas_wpisu"></property>
+				<property name="entry" type="string" column="wpis"></property>
+			</composite-element>
+		</list>
+ -->
+ <list name="history" table="userHistory" inverse="true" cascade="save-update">  
+ 	
+ 	<key column="user_Id"></key>
+ 	<list-index column="position"></list-index>
+ 	<one-to-many class="com.simpleprogrammer.UserHistory"/>
+ 	
+ </list>
+
+	</class>
+</hibernate-mapping>
